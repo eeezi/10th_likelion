@@ -1,0 +1,30 @@
+{% extends './layouts/header.html' %}
+{% block content %}
+<br>
+{% for board in boards %}
+<div class="d-flex align-items-center flex-column">
+    <!-- 게시글 -->
+    <a href="{{board.id}}">
+        <h3>{{board.title}}<!-- 게시글 제목 --></h3>
+    </a>
+    <small>{{board.date}}<!-- 게시 날짜 --></small>
+    <hr width="40%">
+</div>
+<br>
+{% endfor %}
+
+<!-- 페이지네이션 -->
+<div class="d-flex align-items-center flex-column">
+    {% if boards.has_previous %}
+    <a href="?page=1">첫 페이지</a>
+    <a href="?page={{boards.previous_page_number}}">이전페이지</a>
+    {% endif %}
+
+    <span> {{ boards.number }} / {{ boards.paginator.num_pages}} </span>
+
+    {% if boards.has_next %}
+    <a href="?page={{boards.next_page_number}}">다음 페이지</a>
+    <a href="?page={{boards.paginator.num_pages}}">마지막 페이지</a>
+    {% endif %}
+</div>
+{% endblock %}

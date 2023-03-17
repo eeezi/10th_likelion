@@ -1,0 +1,33 @@
+{% extends './layouts/header.html' %}
+{% block content %}
+<br>
+<div class="d-flex align-items-center flex-column">
+    <h2>{{board_detail.title}}<!-- 게시글 제목 --></h2>
+    <small>{{board_detail.date}}<!-- 게시글 날짜 --></small>
+    <p>{{board_detail.body}}<!-- 게시글 내용 --></p>
+    <hr width="40%">
+</div>
+
+
+<!-- 댓글 등록 -->
+<div class="d-flex align-items-center flex-column">
+    <form action="{% url 'create_comment' board_detail.id %}" method="post">
+        {% csrf_token %}
+        <div>
+            <input type="text" name="comment" id="comment">
+            <input type="submit" value="댓글달기">
+        </div>
+    </form>
+</div>
+
+<br>
+<br>
+
+<!-- 댓글 목록 -->
+<div class="d-flex align-items-center flex-column">
+    {% for comment in comment_detail.comment_set.all %}
+    <small>{{comment.comment}}<!-- 댓글 내용 --></small>
+    <hr width="20%">
+    {% endfor %}
+</div>
+{% endblock %}
